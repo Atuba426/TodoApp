@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  h1 {
+    text-align: center;
+  }
+  .main-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  #task-title{
+      padding: 0.2rem;
+      margin-top: 1rem;
+      border-radius: 3px;
+  }
+  label{
+      font-size: 13px;
+  }
+  .completed{
+      opacity: 0.6;
+      text-decoration: line-through;
+  }
