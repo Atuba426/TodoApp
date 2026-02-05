@@ -9,13 +9,17 @@ export function initEvents() {
     const priority = document.getElementById("task-priority").value;
     const dueDate = document.getElementById("task-due").value;
 
-    state.tasks.push({
-      id: Date.now(),
-      title,
-      priority,
-      dueDate,
-      completed: false,
-    });
+    state.tasks = [
+      ...state.tasks,
+      {
+        id: Date.now(),
+        title,
+        priority,
+        dueDate,
+        completed: false,
+      },
+    ];
+
     saveTasks(state.tasks);
     renderTasks();
     e.target.reset();
@@ -26,20 +30,23 @@ export function initEvents() {
   });
 
   document.getElementById("task-list").addEventListener("click", (e) => {
-    const li = e.target.closest('li');
+    const li = e.target.closest("li");
     if (!li) return;
- const taskId = Number(li.dataset.id);
- //delete logic
-if(e.target.classList.contains('delete-btn')){
-  state.tasks=state.tasks.filter(task=>task.id !==taskId);
-  saveTasks(state.tasks);
-  renderTasks();
-  return;
-}
- //Toggle logic
+    const taskId = Number(li.dataset.id);
+    //delete logic
+    if (e.target.classList.contains("delete-btn")) {
+      state.tasks = state.tasks.filter((task) => task.id !== taskId);
+      saveTasks(state.tasks);
+      renderTasks();
+      return;
+    }
+    //Toggle logic
     const task = state.tasks.find((t) => t.id === taskId);
     if (!task) return;
-    task.completed = !task.completed;
+    state.tasks = state.tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    );
+    
     saveTasks(state.tasks);
     renderTasks();
   });
