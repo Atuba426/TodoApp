@@ -26,10 +26,17 @@ export function initEvents() {
   });
 
   document.getElementById("task-list").addEventListener("click", (e) => {
-    const li = e.target;
-    if (!li.dataset.id) return;
-
-    const taskId = Number(li.dataset.id);
+    const li = e.target.closest('li');
+    if (!li) return;
+ const taskId = Number(li.dataset.id);
+ //delete logic
+if(e.target.classList.contains('delete-btn')){
+  state.tasks=state.tasks.filter(task=>task.id !==taskId);
+  saveTasks(state.tasks);
+  renderTasks();
+  return;
+}
+ //Toggle logic
     const task = state.tasks.find((t) => t.id === taskId);
     if (!task) return;
     task.completed = !task.completed;
