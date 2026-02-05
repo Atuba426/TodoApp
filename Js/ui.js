@@ -6,7 +6,7 @@ export function renderTasks(){
 
     const filtered=state.tasks.filter(task=>{
         if(state.filter==='completed') return task.completed;
-        if(state.filter==='active') return !task.completed;
+        if(state.filter==='Active') return !task.completed;
         return true;
 
     });
