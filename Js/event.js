@@ -1,6 +1,8 @@
 import { state } from "./state.js";
 import { saveTasks } from "./storage.js";
 import { renderTasks } from "./ui.js";
+import {createHistoryManager} from "./history.js";
+const history= createHistoryManager();
 
 export function initEvents() {
   document.getElementById("task-form").addEventListener("submit", (e) => {
@@ -8,7 +10,7 @@ export function initEvents() {
     const title = document.getElementById("task-title").value;
     const priority = document.getElementById("task-priority").value;
     const dueDate = document.getElementById("task-due").value;
-
+history.saveSnapshot();
     state.tasks = [
       ...state.tasks,
       {
@@ -34,15 +36,20 @@ export function initEvents() {
     if (!li) return;
     const taskId = Number(li.dataset.id);
     //delete logic
+    history.saveSnapshot();
     if (e.target.classList.contains("delete-btn")) {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
       saveTasks(state.tasks);
       renderTasks();
       return;
     }
+    //undo-redo btns
+    document.getElementById("undo").addEventListener("click",history.undo);
+    document.getElementById("redo").addEventListener("click",history.redo);
     //Toggle logic
     const task = state.tasks.find((t) => t.id === taskId);
     if (!task) return;
+    history.saveSnapshot();
     state.tasks = state.tasks.map((task) =>
       task.id === taskId ? { ...task, completed: !task.completed } : task
     );

@@ -1,4 +1,8 @@
-export const state={
-    tasks:[],
-    filter:'all'
+export const state = {
+  tasks: [],
+  filter: "all",
+  history: {
+    past: [],
+    future: [],
+  }
 };
