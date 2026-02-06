@@ -1,5 +1,5 @@
 import { state } from "./state.js";
-import { saveTasks } from "./storage.js";
+import { autosave } from "./autosave.js";
 import { renderTasks } from "./ui.js";
 import {createHistoryManager} from "./history.js";
 const history= createHistoryManager();
@@ -22,7 +22,7 @@ history.saveSnapshot();
       },
     ];
 
-    saveTasks(state.tasks);
+  autosave();
     renderTasks();
     e.target.reset();
   });
@@ -39,7 +39,7 @@ history.saveSnapshot();
     history.saveSnapshot();
     if (e.target.classList.contains("delete-btn")) {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
-      saveTasks(state.tasks);
+    autosave();
       renderTasks();
       return;
     }
@@ -54,7 +54,7 @@ history.saveSnapshot();
       task.id === taskId ? { ...task, completed: !task.completed } : task
     );
     
-    saveTasks(state.tasks);
+  autosave();
     renderTasks();
   });
 }
