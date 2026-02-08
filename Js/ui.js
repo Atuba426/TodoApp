@@ -1,6 +1,7 @@
-import { state } from "./state.js";
+import {store} from "./app.js";
 
 export function renderTasks() {
+  const state= store.getState();
   const list = document.getElementById("task-list");
   list.innerHTML = "";
 

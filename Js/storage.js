@@ -1,9 +1,20 @@
-const STORAGE_KEY = "todoApp_task";
+const STORAGE_KEY = "taskforge_task";
 
 export function saveTasks(tasks) {
+  if (!Array.isArray(tasks)) return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
-export function loadTasks() {
+
+export function loadTask() {
   const data = localStorage.getItem(STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
+  if (!data || data === "undefined") {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(data);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    console.log("corrupted local storage data", err);
+    return [];
+  }
 }
