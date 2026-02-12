@@ -1,6 +1,7 @@
 import {store} from "./app.js";
 
 export function renderTasks() {
+  console.log("rendering!!");
   const state= store.getState();
   const list = document.getElementById("task-list");
   list.innerHTML = "";

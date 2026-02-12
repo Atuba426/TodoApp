@@ -29,13 +29,14 @@ export function initEvents() {
       completed: false,
     };
     store.dispatch({
-      type: "ADD_TASK",
+      type: "ADD_TASKS",
       payload: newTask,
     });
 
     e.target.reset();
   });
   document.getElementById("filter-status").addEventListener("change", (e) => {
+    console.log("filter-status");
     store.dispatch({
       type: "SET_FILTER",
       payload: e.target.value.toLowerCase(),
@@ -49,16 +50,17 @@ export function initEvents() {
     //delete logic
 
     if (e.target.classList.contains("delete-btn")) {
+      console.log("delete clicked!");
       store.dispatch({
-        type: "DELETE_TASK",
+        type: "DELETE_TASKS",
         payload: { id: taskId },
       });
       return;
     }
     //toggle logic
-
+console.log("toggle clicked!");
     store.dispatch({
-      type: "TOGGLE_TASK",
+      type: "TOGGLE_TASKS",
       payload: { id: taskId },
     });
   });
