@@ -27,7 +27,7 @@ function canvasClick(event) {
 
   state = drawShape(
     state,
-    createShape(selectedShape, x, y, 25, "black")
+    createShape(selectedShape, x, y, 25, "yellow")
   );
 
   render(state.present);
